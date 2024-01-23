@@ -1,0 +1,19 @@
+<h3>Register</h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+    {{form.username.label}}
+    {{form.username}}<br>
+
+    {{form.password1.label}}
+    {{form.password1}}<br>
+
+    {{form.password2.label}}
+    {{form.password2}}<br>
+
+    <input type="submit" name="Create User">
+    <li><a href="{% url 'login'%}">Уже есть аккаунт </a></li>
+    {%for m in messages%}
+    {{m.label}}
+    {%endfor%}
+</form>

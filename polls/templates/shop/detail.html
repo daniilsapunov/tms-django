@@ -1,0 +1,17 @@
+{% extends 'shop/base.html' %}
+
+{% block body %}
+{% if product %}
+    <legend><h1>{{product.name}}</h1></legend><br>
+    <h2>{{product.description}}</h2>
+    <h2>{{product.price}}$</h2>
+    <h2>Category:<a href="{% url 'shop:all_of_category' product.category.id%}">{{product.category}}</a></h2>
+        {% if user.is_authenticated %}
+            <form action="{% url 'shop:add_to_cart' %}?next={{ request.path }}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{product.id}}"/>
+                <input type="submit" value="add_to_cart" class="btn btn-danger"/>
+            </form>
+        {% endif%}
+{% endif %}
+{% endblock %}

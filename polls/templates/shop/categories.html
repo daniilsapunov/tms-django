@@ -1,0 +1,10 @@
+{% extends 'shop/base.html' %}
+
+{% block body %}
+{% if category %}
+<h1>Category:</h1>
+    {% for category in category %}
+        <legend><h2><li><a href="{% url 'shop:all_of_category' category.id %}">{{ category.name }}</a></li></h2></legend>
+    {%endfor%}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <ul>
+    <li><a href="{% url 'shop:products_view'%}">Все продукты</a></li>
+    <li><a href="{% url 'shop:all_categories' %}">Категории</a></li>
+    <li><a href="{% url 'shop:main'%}">Главная</a></li>
+      {% if not  user.is_authenticated%}
+        <li><a href="{% url 'shop:register'%}">Зарегистрироваться</a></li>
+      {% endif %}
+  </ul>
+</head>
+
+{% block body %}
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+{% endblock %}

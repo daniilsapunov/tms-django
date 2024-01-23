@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <ul>
+        <li><a href="{% url 'shop:products_view'%}">Все продукты</a></li>
+        <li><a href="{% url 'shop:all_categories' %}">Категории</a></li>
+        <li><a href="{% url 'shop:main'%}">Главная</a></li>
+        {% if not user.is_authenticated%}
+        <li><a href="{% url 'shop:register'%}">Зарегистрироваться</a></li>
+        {% endif %}
+        {% if user.is_authenticated%}
+        <li><a href="{% url 'shop:account'%}">Личный аккаунт</a></li>
+        <li><a href="{% url 'shop:shopping_cart'%}">Моя корзина</a></li>
+        {% endif %}
+    </ul>
+</head>
+<body>
+<div class="hstack gap-3">
+    {% if user.is_authenticated %}
+    <form action="{% url 'logout' %}?next={{ request.path }}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" class="btn btn-danger"/>
+    </form>
+    {% else %}
+    <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-info">Login</a>
+    {% endif %}
+</div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div>{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% block body %} Тут что-то должно быть но я ничего не придумал(Главная){% endblock %}
+</body>
+</html>

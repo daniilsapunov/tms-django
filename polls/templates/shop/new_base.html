@@ -1,0 +1,19 @@
+{% load static %}
+
+
+<div class="navbar">
+    <a href="#home">Главная</a>
+    <a href="#news">Новости</a>
+    <div class="dropdown">
+        <button class="dropbtn">Выпадающее
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="#">Ссылка 1</a>
+            <a href="#">Ссылка 2</a>
+            <a href="#">Ссылка 3</a>
+            <link rel="stylesheet" type="text/css" href="{% static 'stylesheet.css' %}">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</div>

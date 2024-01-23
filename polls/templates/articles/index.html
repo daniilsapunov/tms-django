@@ -1,0 +1,13 @@
+{% extends "articles/base.html" %}
+
+{% block body %}
+    {% if all_articles %}
+        <ul>
+            {% for article in all_articles %}
+            <li><a href="{% url 'articles:detail' article.id %}">{{ article.article_name}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No article are available</p>
+    {% endif %}
+{% endblock %}
