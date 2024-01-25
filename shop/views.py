@@ -164,7 +164,7 @@ def make_order(request):
             profile.shopping_cart.save()
             profile.shopping_cart = Order.objects.create(profile=profile)
             profile.save()
-            return redirect('shop:success_order') Reverse for 'author_detail' with arguments '('',)' not found. 1 pattern(s) tried: ['articles/author_detail/(?P<author_id>[^/]+)\\Z']
+            return redirect('shop:success_order')
         else:
             return redirect('shop:shopping_cart')
 
