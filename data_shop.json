@@ -1,20 +1,13 @@
 {
-  "Do you like Django?": {
-    "Yes": 100,
-    "No": 5,
-    "Not sure": 15
-  },
-  "How are you?": {
-    "Fine": 14,
-    "Not bad": 17,
-    ":(": 1
-  },
-  "What version of Pythod do you use?": {
-    "2": 0,
-    "3": 8
-  },
-  "What is ORM?": {
-    "Object relational mapping": 123,
-    "Object rotation middleware": 17
+    "bike": {
+      "name": "SuperBike",
+      "description": "if you want be king of road = choice obvious",
+      "price": 66666
+    },
+
+  "phone": {
+    "name": "Samsung galaxy duo",
+    "description": "dreamphone",
+    "price": 120
   }
 }
