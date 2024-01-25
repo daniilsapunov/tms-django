@@ -4,7 +4,7 @@
     {% if all_articles %}
         <ul>
             {% for article in all_articles %}
-            <li><a href="{% url 'articles:detail' article.id %}">{{ article.article_name}}</a></li>
+            <li><a href="{% url 'articles:detail' article.id %}">{{ article.title}}</a></li>
             {% endfor %}
         </ul>
     {% else %}

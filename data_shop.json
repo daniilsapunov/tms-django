@@ -1,0 +1,20 @@
+{
+  "Do you like Django?": {
+    "Yes": 100,
+    "No": 5,
+    "Not sure": 15
+  },
+  "How are you?": {
+    "Fine": 14,
+    "Not bad": 17,
+    ":(": 1
+  },
+  "What version of Pythod do you use?": {
+    "2": 0,
+    "3": 8
+  },
+  "What is ORM?": {
+    "Object relational mapping": 123,
+    "Object rotation middleware": 17
+  }
+}

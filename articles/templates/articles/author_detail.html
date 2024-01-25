@@ -1,0 +1,13 @@
+{% extends 'articles/base.html' %}
+
+{% block body %}
+    <b>Author:<br></b>
+<br>
+First_name: {{author.first_name}}<br>
+Last_name: {{author.last_name}}<br>
+Date of birth: {{author.date_of_birth}}<br>
+<b>Произведения автора:</b><br>
+{% for i in articles %}
+<a href="{% url 'articles:detail' i.id%}">{{i}}</a><br>
+{%endfor%}
+{% endblock %}

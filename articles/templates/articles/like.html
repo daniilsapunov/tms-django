@@ -5,10 +5,10 @@
 {% block body %}
     {% if article%}
       <ul>
-        <legend><h1>Название статьи: {{ article.article_name }}<br></h1></legend>
-         Автор: {{ article.author_name }}<br>
-          <i>{{ article.article_text }}<br></i>
-          like: {{article.like_count}}
+        <legend><h1>Название статьи: {{ article.title }}<br></h1></legend>
+         Автор: {{ article.authors.first_name }}<br>
+          <i>{{ article.text }}<br></i>
+          like: {{article.likes}}
       </ul>
             <input type="submit" value="like"/>
 

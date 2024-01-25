@@ -9,10 +9,10 @@ from .models import Article
 # Create your tests here.
 
 
-def create_article(article_text, days, article_name, like_count):
+def create_article(text, days, title, likes):
     pub_date = timezone.now() + timezone.timedelta(days=days)
-    return Article.objects.create(article_text=article_text, article_name=article_name, pub_date=pub_date,
-                                  like_count=like_count)
+    return Article.objects.create(text=text, title=title, pub_date=pub_date,
+                                  likes=likes)
 
 
 class ArticleIndexViewTests(TestCase):

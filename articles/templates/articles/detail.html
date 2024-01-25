@@ -1,0 +1,29 @@
+{% extends 'articles/base.html' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+      <form action="{% url 'articles:like' article.id %}" method="post">
+        {% csrf_token %}
+            {% if article%}
+                <ul>
+                    <legend><h1>Название статьи: {{ article.title }}<br></h1></legend>
+                    {% if author|length > 1%}
+                        {% for author in author %}
+                            Автор: <a href="{% url 'articles:author_detail' author.id %}">{{ author.first_name }}</a> {{author.last_name}}<br>
+                        {% endfor %}
+                    {% else %}
+                        Автор: <a href="{% url 'articles:author_detail' author.id %}">{{ author.first_name }}</a> {{author.last_name}}<br>
+                    {% endif %}
+                <i>{{ article.text }}<br></i>
+                like: {{article.likes}}
+            </ul>
+         <input type="submit" value="like"/>
+
+        {%else%}
+            <p>No Article are available.</p>
+        {%endif%}
+      </form>
+{% endblock %}
+
+
