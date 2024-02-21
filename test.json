@@ -1,0 +1,15 @@
+{
+  "Is the sky green?": {
+    "Yes": 2,
+    "No": 98
+  },
+  "What color is the sun?": {
+    "Blue": 5,
+    "Yellow": 90,
+    "Green": 3
+  },
+  "Do fish fly?": {
+    "Yes, with wings": 1,
+    "No": 99
+  }
+}
