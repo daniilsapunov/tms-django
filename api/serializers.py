@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from polls.models import Question, Choice
-from articles.models import Article
+from articles.models import Article, Author
 from shop.models import Product, Category
 
 
+
 class ArticleSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Article
         fields = '__all__'

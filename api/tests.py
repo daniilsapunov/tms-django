@@ -3,9 +3,10 @@ from django.utils import timezone
 from django.urls import reverse
 from rest_framework import status
 
+from rest_framework.test import APIClient
 from polls.models import Question, Choice
 from shop.models import Category, Product
-from articles.views import Article
+from articles.views import Article, Author
 
 
 class BaseAPITest(TestCase):
@@ -221,46 +222,45 @@ class APITestCase(BaseAPITest):
         response_1 = self.client.get('/api/questions/', {'question_text': "c"})
         response_2 = self.client.get('/api/questions/', {'question_text': "b"})
         response_3 = self.client.get('/api/questions/', {'question_text': "C"})
-        #
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        # print(response_1)
-        # print(response_2)
-        # print(response_3)
-        # print(response_1.json())
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        # print(response_2.json())
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        # print(response_3.json())
-        # print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
         self.assertEqual(response_1.status_code, 200)
         self.assertEqual(response_2.status_code, 200)
         self.assertEqual(response_3.status_code, 200)
         # Проверка корректной пагинации и количества элементов на странице
 
 
-# class TestPostPutDelete(TestCase):
-#
-#     def test_create_question(self):
-#         data = {
-#             'question_text': 'New Question',
-#             'pub_date': timezone.now(),
-#             'status': 'New',
-#             'choices': [  # Предоставление выборов в виде списка словарей
-#                 {'choice_text': 'Choice 1'},
-#                 {'choice_text': 'Choice 2'}
-#             ]
-#         }
-#         response = self.client.post(reverse('question-list'), data, format='json')
-#
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-#         self.assertEqual(Question.objects.count(), 1)
-#         self.assertEqual(Question.objects.get().question_text, 'New Question')
+class ArticleAPITest(TestCase):
+    def test_create_article(self):
+        client = APIClient()
+        a = Author.objects.create(first_name='drill', last_name='danil')
+        response = client.post('/api/articles/',
+                               {'title': 'Test Article', 'text': 'This is a test article.', 'authors': [a.id, ],
+                                'pub_date': timezone.now() + timezone.timedelta(days=3)},
+                               format='json')
+        self.assertEqual(response.status_code, 201)  # Проверяем, что ответ вернул статус создания
+        self.assertEqual(Article.objects.count(), 1)  # Проверяем, что в базе данных появилась одна запись
 
-def test_put(self):
-    pass
+    def test_update_article(self):
+        client = APIClient()
+        au = Author.objects.create(first_name='drill', last_name='danil')
+        a = Article.objects.create(title='t', pub_date=timezone.now() + timezone.timedelta(days=3),
+                                   text='t', likes=0)
+        response = client.put(f'/api/articles/{a.id}/',
+                              {'title': 'Updated Title', 'text': 'New text', 'likes': a.likes,
+                               'pub_date': a.pub_date, 'authors': [au.id]},
+                              format='json')
 
 
-def test_detele(self):
-    pass
+        # self.assertEqual(response.status_code, 201)  # Проверяем, что ответ вернул статус обновления
+        a.refresh_from_db()  # Обновляем объект из базы данных
+        self.assertEqual(a.title, 'Updated Title')  # Проверяем, что запись была успешно обновлена
+
+    def test_delete_article(self):
+        client = APIClient()
+        a = Article.objects.create(title='t', pub_date=timezone.now() + timezone.timedelta(days=3),
+                                   text='t')
+        response = client.delete(f'/api/articles/{a.id}/')
+
+        # self.assertEqual(create.status_code, 201)
+        self.assertEqual(response.status_code, 204)  # Проверяем, что ответ вернул статус успешного удаления
+        self.assertEqual(Article.objects.count(), 0)  # Проверяем, что запись была удалена из базы данных
