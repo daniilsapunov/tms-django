@@ -15,7 +15,7 @@ def index(request):
 
 
 def detail(request, article_id: int):
-    #article = get_object_or_404(Article, id=article_id)
+    # article = get_object_or_404(Article, id=article_id)
     a = randint(1, 2)
 
     try:
@@ -25,7 +25,7 @@ def detail(request, article_id: int):
     try:
         author = Author.objects.get(article=article)
     except Author.MultipleObjectsReturned:
-            author = Author.objects.filter(article=article)
+        author = Author.objects.filter(article=article)
 
     context = {'article': article, 'author': author}
     return render(request, 'articles/detail.html', context)
@@ -45,13 +45,9 @@ def like(request, article_id: int):
     return redirect('articles:detail', article.id)
 
 
-def author_detail(request, author_id: id ):
+def author_detail(request, author_id: id):
     author = get_object_or_404(Author, id=author_id)
 
     articles = Article.objects.filter(authors=author.id)
     context = {'author': author, 'articles': articles}
     return render(request, 'articles/author_detail.html', context)
-
-
-
-

@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.utils import timezone
-from django.urls import reverse
 from polls.models import Question, Choice
 from shop.models import Category, Product
 from articles.views import Article

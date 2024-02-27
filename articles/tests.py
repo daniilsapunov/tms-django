@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 
 # Create your tests here.
-from .models import Article
+from articles.models import Article, Author
 
 
 # Create your tests here.
@@ -34,7 +34,11 @@ class ArticleDetailViewTests(TestCase):
         self.assertEquals(response.status_code, 404)
 
     def test_get_article(self):
-        new_article = create_article('test1', 3, 'test1', 100)
+        a = Author.objects.create(first_name='drill', last_name='danil')
+        new_article = Article.objects.create(title='test1', pub_date=timezone.now(),
+                                             text='test1', likes=100)
+        new_article.authors.add(a)
+        print(new_article)
         article_id = new_article.id
         response = self.client.get(reverse('articles:detail', args=[article_id]))
         self.assertEquals(response.status_code, 200)

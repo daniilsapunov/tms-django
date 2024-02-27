@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from polls.models import Question, Choice
-from articles.models import Article, Author
+from articles.models import Article
 from shop.models import Product, Category
 
 
