@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from rest_framework.decorators import api_view
 from rest_framework.request import Request
 from api.serializers import QuestionSerializer, ChoiceSerializer, CategorySerializer, ProductSerializer, \
@@ -8,7 +8,6 @@ from articles.models import Article
 from shop.models import Category, Product
 from rest_framework import viewsets, filters, pagination
 from .filters import ChoiceCountFilter, ArticlesCountWordFilter
-from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.response import Response
 from .serializers import UserSerializer
